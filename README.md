@@ -1,4 +1,4 @@
-# Using a bot to do VoIP communication
+# Using a bot to do VoIP communication using SIP
 
 I will document how to build a bot that does VoIP using the SIP protocol. If you're not clear on how SIP works, please have a read of [this link](https://www.voipmechanic.com/sip-basics.htm). 
 
