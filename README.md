@@ -9,6 +9,9 @@ Here are the steps required:
 - **Set up an SIP client, which will be your bot.** I used the [python wrapper for pjsip](https://trac.pjsip.org/repos/wiki/Python_SIP_Tutorial), which is an open source library. 
 - **Set up Cognitive Services.** This will be used to use LUIS with our bot to understand the user's utterances, as well as use speech to text and text to speech.
 
+The flow is as following:
+(insert diagram showing flow)
+
 ## Setting up the SIP server
 
 When you first [install Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart), the interface IP address will be your local IP address. Add the public facing IP address by going to the Configuration page, then filling in the "Interface address 1" field with the public facing IP address of the VM. You'll also need to go into the Azure Portal and configure the security rules for your VM as well to allow traffic from other SIP clients. 
@@ -33,14 +36,17 @@ sudo python setup.py install
 If you cd into the samples folder, you will see a bunch of useful samples on how to register, make a call, etc. 
 
 We will require the following parts for the bot SIP client:
-- Speech to text (STT) module
-- Language Understanding (LUIS) module
-- Text to speech (TTS) module
-- Silence removal module 
-- File converter module (Will explain later)
+- PJSIP call module - runclient.py
+- File converter module (Will explain later) - convertwav.py
+- Silence removal module - clipaudiomodule.py
+- Speech to text (STT) module - runspeechrec.py
+- Language Understanding (LUIS) module - luismodule.py
+- Text to speech (TTS) module - bingttsmodule.py
 
-The flow is as following:
-(insert diagram showing flow)
+### PJSIP call module
 
+In here, we start by registering the SIP client with the server. If a call is received, the callback is triggered. The client then waits for 3 seconds before answering the call and starting the wav recorder. The wav recorder listens for 10 seconds before closing the recorder. This is because the rest API for Bing STT takes 10 seconds max. Ideally, we would use the websocket here (future implementation). 
 
+Future work:
+- Using the Bing Websocket API, which includes silence detection, etc.
 
