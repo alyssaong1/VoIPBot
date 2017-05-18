@@ -22,7 +22,7 @@ You'll then need to add user accounts so that they can communicate through your 
 
 There are 2 steps to this: 1. Building pjsip libraries (this has to be done in a unix based environment) and 2. Building the python modules. The SIP client was set up in an Ubuntu VM. 
 
-Run the following commands to download and build both pjsip and its python modules:
+Run the following commands to download and build both pjsip and its python modules (thanks to [this](http://stackoverflow.com/a/30768314) helpful stack overflow answer):
 
 ```bash
 wget "http://www.pjsip.org/release/2.6/pjproject-2.6.tar.bz2"
@@ -46,6 +46,36 @@ We will require the following parts for the bot SIP client:
 ### PJSIP call module
 
 In here, we start by registering the SIP client with the server. If a call is received, the callback is triggered. The client then waits for 3 seconds before answering the call and starting the wav recorder. The wav recorder listens for 10 seconds before closing the recorder. This is because the rest API for Bing STT takes 10 seconds max. Ideally, we would use the websocket here (future implementation). 
+
+Method to listen then respond:
+```python
+def listen_and_respond():
+    recorderid = lib.create_recorder("YOUR_SOURCE_FOLDER/input.wav")
+    recorderslot = lib.recorder_get_slot(recorderid)
+
+    # Connect sound device to wav record file
+    lib.conf_connect(0, recorderslot)
+    lib.conf_connect(callslot, recorderslot)
+    
+    # Listen for 8 seconds
+    time.sleep(8)
+
+    lib.recorder_destroy(recorderid)
+    mybot = bot.BotHelper()
+    # Generate the response based on user's utterance
+    mybot.generate_response()
+
+    # Play wav file back to user
+    playerid = lib.create_player('botresponse.wav',loop=False)
+    playerslot = lib.player_get_slot(playerid)
+    
+    # Connect the audio player to the call
+    lib.conf_connect(playerslot,callslot)
+```
+
+### File converter module
+
+The wav file that is produced by pjsip unfortunately
 
 Future work:
 - Using the Bing Websocket API, which includes silence detection, etc.
