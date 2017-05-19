@@ -75,7 +75,57 @@ def listen_and_respond():
 
 ### File converter module
 
-The wav file that is produced by pjsip unfortunately
+Although pjsip produces a wav file, the properties of the wav file aren't actually properly constructed. Hence, we will need to reconstruct it with the correct properties (PCM, sampling rate of 16000 with wav file type). The soundfile python library was used to stream in the raw audio and reconstruct the wav file. 
+
+Method for reconstruction is as follows:
+
+```python
+import soundfile as sf
+
+myfile = sf.SoundFile('input.wav',mode='r',format='RAW',samplerate=16000,channels=1,subtype='PCM_16')
+
+# Reconstruct wav file
+sf.write('output.wav',myfile.read(),16000,subtype='PCM_16',format='WAV')
+```
+
+### Trimming silence from audio
+
+This part is required because we are doing the naive implementation of STT, where we use the rest API instead of websockets where silence detection is already done for you. Trimming silence from the audio reduces latency and also reduces the risk of us sending more than 10 seconds of audio.
+
+Method for trimming silence (cheers to [this stack overflow answer](http://stackoverflow.com/a/29550200)):
+```python
+from pydub import AudioSegment
+
+class AudioTrimmer:
+
+	def detect_leading_silence(self, sound, silence_threshold=-50.0, chunk_size=10):
+    		'''
+    		sound is a pydub.AudioSegment
+    		silence_threshold in dB
+    		chunk_size in ms
+		
+    		iterate over chunks until you find the first one with sound
+    		'''
+    		trim_ms = 0 # ms
+    		while sound[trim_ms:trim_ms+chunk_size].dBFS < silence_threshold:
+        		trim_ms += chunk_size
+		
+    		return trim_ms
+
+	def trim_audio(self,speech_file):
+		
+		sound = AudioSegment.from_file(speech_file, format="wav")
+		
+		start_trim = self.detect_leading_silence(sound)
+		end_trim = self.detect_leading_silence(sound.reverse())
+		
+		duration = len(sound)    
+		trimmed_sound = sound[start_trim:duration-end_trim]
+		
+		file_handle = trimmed_sound.export("trimmed.wav", format="wav")
+```
+
+### 
 
 Future work:
 - Using the Bing Websocket API, which includes silence detection, etc.
