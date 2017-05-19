@@ -125,7 +125,11 @@ class AudioTrimmer:
 		file_handle = trimmed_sound.export("trimmed.wav", format="wav")
 ```
 
-### 
+### Speech to text module
+
+```python
+
+```
 
 Future work:
 - Using the Bing Websocket API, which includes silence detection, etc.
