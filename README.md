@@ -127,9 +127,11 @@ class AudioTrimmer:
 
 ### Speech to text module
 
-```python
+We used the Bing Speech API to convert the user's utterance into text. You will need to obtain a Bing Speech API key, instructions on obtaining the key [here](http://www.icomedias.com/support/microsoft-cognitive-services-key/). You can also generate a key straight from the Azure Portal. You will need the key in the authorization header when you make calls to the speech API. Refer to bingspeech.py for the code to make calls to the speech API - you will need a specific set of paramters when you make the call. The format of your wav needs to be PCM. 
 
-```
+### LUIS module
+
+There is an official [Python SDK for LUIS]() by Microsoft, which we used in our code. You will need to go into the LUIS portal to configure the intents that your bot will understand. Our bot only gets the weather and reads out the news for now. 
 
 Future work:
 - Using the Bing Websocket API, which includes silence detection, etc.
