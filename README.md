@@ -45,7 +45,7 @@ We will require the following parts for the bot SIP client:
 
 ### PJSIP call module
 
-In here, we start by registering the SIP client with the server. If a call is received, the callback is triggered. The client then waits for 3 seconds before answering the call and starting the wav recorder. The wav recorder listens for 10 seconds before closing the recorder. This is because the rest API for Bing STT takes 10 seconds max. Ideally, we would use the websocket here (future implementation). 
+In here, we start by registering the SIP client with the server. If a call is received, the callback is triggered. The client then waits for 3 seconds before answering the call and starting the wav recorder. The wav recorder listens for 10 seconds before closing the recorder. This is because the rest API for Bing STT takes 10 seconds max. Note that this is a naive implementation of listening to the user's commands and ideally, we should be using the websocket here (future implementation). 
 
 Method to listen then respond:
 ```python
