@@ -10,7 +10,7 @@ Here are the steps required:
 - **Set up Cognitive Services.** This will be used to use LUIS with our bot to understand the user's utterances, as well as use speech to text and text to speech.
 
 The flow is as following:
-
+![architecture](imgs/siparchi.png)
 
 ## Setting up the SIP server
 
@@ -50,27 +50,29 @@ In here, we start by registering the SIP client with the server. If a call is re
 Method to listen then respond:
 ```python
 def listen_and_respond():
-    recorderid = lib.create_recorder("YOUR_SOURCE_FOLDER/input.wav")
+    recorderid = lib.create_recorder("YOUR_FOLDER_STRUCTURE/input.wav")
     recorderslot = lib.recorder_get_slot(recorderid)
 
     # Connect sound device to wav record file
     lib.conf_connect(0, recorderslot)
     lib.conf_connect(callslot, recorderslot)
-    
-    # Listen for 8 seconds
+
+	# Listen for 8 seconds, naive implementation
     time.sleep(8)
 
     lib.recorder_destroy(recorderid)
     mybot = bot.BotHelper()
-    # Generate the response based on user's utterance
     mybot.generate_response()
 
     # Play wav file back to user
     playerid = lib.create_player('botresponse.wav',loop=False)
     playerslot = lib.player_get_slot(playerid)
-    
     # Connect the audio player to the call
     lib.conf_connect(playerslot,callslot)
+
+	# Wait for the thing to be read for a few seconds then hang up
+	time.sleep(13)
+	current_call.hangup()
 ```
 
 ### File converter module
