@@ -1,16 +1,16 @@
-# Using a bot to do VoIP communication using SIP
+# Using a bot to do VoIP communication using SIP (Session Initiation Protocol)
 
-I will document how to build a bot that does VoIP using the SIP protocol. If you're not clear on how SIP works, please have a read of [this link](https://www.voipmechanic.com/sip-basics.htm). 
+If you're not clear on how SIP works, please have a read of [this link](https://www.voipmechanic.com/sip-basics.htm). 
 
 Here's a video of the end result: [video](). It works with any SIP client - so if you happen to have a device that can take calls using SIP, then you'll be able to do this as well.
 
 Here are the steps required:
-- **Set up an SIP server.** I set up [Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart) (free 60 day trial) in a Windows VM. However, there are always open source solutions that you can explore, such as [OVerSIP](http://oversip.net/).
+- **Set up an SIP server.** I set up [Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart) (free 60 day trial) in a Windows VM. However, there are always open source solutions that you can explore, such as [OverSIP](http://oversip.net/).
 - **Set up an SIP client, which will be your bot.** I used the [python wrapper for pjsip](https://trac.pjsip.org/repos/wiki/Python_SIP_Tutorial), which is an open source library. 
 - **Set up Cognitive Services.** This will be used to use LUIS with our bot to understand the user's utterances, as well as use speech to text and text to speech.
 
 The flow is as following:
-(insert diagram showing flow)
+
 
 ## Setting up the SIP server
 
