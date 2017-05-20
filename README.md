@@ -96,7 +96,7 @@ sf.write('output.wav',myfile.read(),16000,subtype='PCM_16',format='WAV')
 
 ### Trimming silence from audio
 
-This part is required because we are doing the naive implementation of STT, where we use the rest API instead of websockets where silence detection is already done for you. Trimming silence from the audio reduces latency and also reduces the risk of us sending more than 10 seconds of audio.
+This part is required because we are doing the naive implementation of STT, where we use the rest API instead of websockets where silence detection is already done for you. Trimming silence from the audio reduces latency and also reduces the risk of us sending more than 10 seconds of audio. You'll need to install the pydub package. 
 
 Method for trimming silence (cheers to [this stack overflow answer](http://stackoverflow.com/a/29550200)):
 ```python
