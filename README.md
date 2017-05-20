@@ -2,7 +2,7 @@
 
 If you're not clear on how SIP works, please have a read of [this link](https://www.voipmechanic.com/sip-basics.htm). 
 
-#### Here's a video of the end result: [video](). 
+#### [Video demo of end result]()
 
 It works with any SIP client - so if you happen to have a VoIP capable device using SIP, then you'll be able to do this as well.
 
