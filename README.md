@@ -2,7 +2,9 @@
 
 If you're not clear on how SIP works, please have a read of [this link](https://www.voipmechanic.com/sip-basics.htm). 
 
-Here's a video of the end result: [video](). It works with any SIP client - so if you happen to have a device that can take calls using SIP, then you'll be able to do this as well.
+#### Here's a video of the end result: [video](). 
+
+It works with any SIP client - so if you happen to have a VoIP capable device using SIP, then you'll be able to do this as well.
 
 Here are the steps required:
 - **Set up an SIP server.** I set up [Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart) (free 60 day trial) in a Windows VM. However, there are always open source solutions that you can explore, such as [OverSIP](http://oversip.net/).
@@ -57,7 +59,7 @@ def listen_and_respond():
     lib.conf_connect(0, recorderslot)
     lib.conf_connect(callslot, recorderslot)
 
-	# Listen for 8 seconds, naive implementation
+    # Listen for 8 seconds, naive implementation
     time.sleep(8)
 
     lib.recorder_destroy(recorderid)
@@ -70,9 +72,9 @@ def listen_and_respond():
     # Connect the audio player to the call
     lib.conf_connect(playerslot,callslot)
 
-	# Wait for the thing to be read for a few seconds then hang up
-	time.sleep(13)
-	current_call.hangup()
+    # Wait for the thing to be read for a few seconds then hang up
+    time.sleep(13)
+    current_call.hangup()
 ```
 
 ### File converter module
