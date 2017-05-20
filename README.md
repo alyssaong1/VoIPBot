@@ -6,7 +6,7 @@ If you're not clear on how SIP works, please have a read of [this link](https://
 
 The solution works with any SIP client - so if you happen to have a VoIP capable device using SIP, then you'll be able to do this as well. 
 
-** NOTE: This is a proof of concept/demo showing that VoIP communication over SIP is possible between a client and a bot, and is not yet  production ready - the bot only takes one command per call right now and does not do automatic phrase detection and does not scale across multiple clients yet (refer to the TODOs section for future work). ** 
+**NOTE: This is a proof of concept/demo showing that VoIP communication over SIP is possible between a client and a bot, and is not yet  production ready - the bot only takes one command per call right now and does not do automatic phrase detection and does not scale across multiple clients yet (refer to the TODOs section for future work).** 
 
 Here are the steps required:
 - **Set up an SIP server.** I set up [Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart) (free 60 day trial) in a Windows VM. However, there are always open source solutions that you can explore, such as [OverSIP](http://oversip.net/).
