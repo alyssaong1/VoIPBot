@@ -4,7 +4,7 @@ If you're not clear on how SIP works, please have a read of [this link](https://
 
 #### [Video demo of end result]()
 
-It works with any SIP client - so if you happen to have a VoIP capable device using SIP, then you'll be able to do this as well.
+The solution works with any SIP client - so if you happen to have a VoIP capable device using SIP, then you'll be able to do this as well. **Note that this is not a production ready implementation - the bot only takes one command per call right now and does not do automatic phrase detection and does not scale across multiple clients yet (refer to the TODOs section for future work). This is a proof of concept/demo showing that VoIP communication over SIP is possible between a client and a bot. ** 
 
 Here are the steps required:
 - **Set up an SIP server.** I set up [Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart) (free 60 day trial) in a Windows VM. However, there are always open source solutions that you can explore, such as [OverSIP](http://oversip.net/).
@@ -148,4 +148,4 @@ Please feel free to make suggestion or a pull request. I am always looking to im
 ## TODOs:
 - Using the Bing Websocket API, which includes silence detection, etc.
 - Abstract out the speech processing
-- Figuring out scalability - how to handle multiple calls at once
+- Figuring out scalability - how to handle multiple calls at once. This could be done by opening a new SIP bot client everytime a call is received from a user, and destroying it upon end of call.
