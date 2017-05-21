@@ -16,13 +16,15 @@ Here are the steps required:
 The flow is as following:
 ![architecture](imgs/siparchi.png)
 
-## Setting up the SIP server
+## Usage
+
+### 1. Setting up the SIP server
 
 When you first [install Brekeke](http://wiki.brekeke.com/wiki/Brekeke-SIP-Server-v3-Quickstart), the interface IP address will be your local IP address. Add the public facing IP address by going to the Configuration page, then filling in the "Interface address 1" field with the public facing IP address of the VM. You'll also need to go into the Azure Portal and configure the security rules for your VM as well to allow traffic from other SIP clients. 
 
 You'll then need to add user accounts so that they can communicate through your server. Make sure the usernames are all numbers. To test that your server is working, install an SIP client app (e.g. AgePhone or CSipSimple) on 2 different phones. In each phone, put in the user credentials and IP address of the VM. You should then be able to call and chat with each other using the app.
 
-## Setting up the SIP client
+### 2. Setting up the SIP client
 
 There are 2 steps to this: 1. Building pjsip libraries (this has to be done in a unix based environment) and 2. Building the python modules. The SIP client was set up in an Ubuntu VM. 
 
@@ -37,7 +39,15 @@ export CFLAGS="$CFLAGS -fPIC"
 cd pjsip-apps/src/python/
 sudo python setup.py install
 ```
-If you cd into the samples folder, you will see a bunch of useful samples on how to register, make a call, etc. 
+
+Copy the files from the src folder to your VM/filesystem (using `scp`). Then run
+```bash
+python runclient.py
+```
+
+Your bot should now be registered with the SIP server and is ready to take calls. You can use an SIP client (e.g. CSipSimple mobile app) to ring the bot. Remember it only listens for the first 10 seconds, so speak your command as soon as the call connects.
+
+## Broken down explanation
 
 We will require the following parts for the bot SIP client:
 - PJSIP call module - runclient.py
