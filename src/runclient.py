@@ -1,7 +1,7 @@
 import sys
 import pjsua as pj
 import threading
-import bothelper as bot
+#import bothelper as bot
 import time
 
 current_call = None
@@ -48,7 +48,7 @@ class MyAccountCallback(pj.AccountCallback):
 	listen_and_respond()
 
 def listen_and_respond():
-    recorderid = lib.create_recorder("YOUR_FILE_PATH/input.wav")
+    recorderid = lib.create_recorder("input.wav")
     recorderslot = lib.recorder_get_slot(recorderid)
 
     # Connect sound device to wav record file
@@ -59,18 +59,18 @@ def listen_and_respond():
     time.sleep(8)
 
     lib.recorder_destroy(recorderid)
-    mybot = bot.BotHelper()
-    mybot.generate_response()
+    #mybot = bot.BotHelper()
+    #mybot.generate_response()
 
     # Play wav file back to user
-    playerid = lib.create_player('botresponse.wav',loop=False)
+    playerid = lib.create_player('chunk_15_816000.wav',loop=False)
     playerslot = lib.player_get_slot(playerid)
     # Connect the audio player to the call
     lib.conf_connect(playerslot,call_slot)
 
-	# Wait for the thing to be read for a few seconds then hang up
-	time.sleep(13)
-	current_call.hangup()
+    # Wait for the thing to be read for a few seconds then hang up
+    time.sleep(13)
+    current_call.hangup()
 
 class MyCallCallback(pj.CallCallback):
 
@@ -124,7 +124,7 @@ try:
     lib.start()
 
 	# Put your sIP client credentials here
-    acc = lib.create_account(pj.AccountConfig("SERVER_IP_ADDRESS", "USERNAME", "PASSWORD"))
+    acc = lib.create_account(pj.AccountConfig("sip.linphone.org", "chiku1064", "Bengaluru@96"))
 
     acc_cb = MyAccountCallback(acc)
     acc.set_callback(acc_cb)
@@ -152,7 +152,7 @@ try:
 		print "There is no call"
 		continue
 	    current_call.hangup()
-		resetAll()
+	    resetAll()
 
 	elif input == "q":
 	    break
